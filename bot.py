@@ -233,13 +233,23 @@ def admin_callbacks(c):
         conn.commit()
         bot.answer_callback_query(c.id, "❌ Вывод отменён")
 
-# ===== WEBHOOK =====
-@app.route(f"/bot/{TOKEN}/", methods=["POST"])
+# ===== Установка Webhook =====
+bot.remove_webhook()
+bot.set_webhook(url=f"{WEBHOOK_URL}/{TOKEN}/")
+print("Webhook установлен:", f"{WEBHOOK_URL}/{TOKEN}/")
+
+# ===== Маршрут Flask для Telegram Webhook =====
+@app.route(f"/{TOKEN}/", methods=["POST"])
 def webhook():
     json_str = request.get_data().decode("utf-8")
     update = telebot.types.Update.de_json(json_str)
     bot.process_new_updates([update])
     return "ok", 200
+
+# ===== Запуск Flask =====
+if __name__ == "__main__":
+    import os
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
 
 # ===== ЗАПУСК =====
 if __name__=="__main__":
