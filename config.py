@@ -1,4 +1,4 @@
-TOKEN "8360081661:AAEOoOdf5tLSfr2scMebO9mY-iq2jzMHrB8"
+TOKEN = "8360081661:AAEOoOdf5tLSfr2scMebO9mY-iq2jzMHrB8"
 
 # ID администратора (можно несколько)
 ADMIN_IDS = [5333130126]
