@@ -1,7 +1,12 @@
 services:
-  - type: worker
-    name: telegram-bot
+  - type: web
+    name: goldbot-service
     env: python
     plan: free
+    branch: main  # или та ветка, где твой код
     buildCommand: pip install -r requirements.txt
     startCommand: python bot.py
+    autoDeploy: true
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
